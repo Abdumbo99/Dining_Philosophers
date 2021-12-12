@@ -8,7 +8,9 @@
 #define MAX_EATING_TIME 10
 
 
+
 int main() {
+    printf("The following lines are to make sure the macros work as intended\n");
     int i =2;
     printf("%d\n",RIGHT_NEIGHBOR(i));
     printf("%d\n",LEFT_NEIGHBOR(i));
