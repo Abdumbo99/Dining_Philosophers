@@ -16,6 +16,10 @@ struct phil
     int cond;
 };
 
+
+/*
+ * Why not just have this in Phil struct
+ * */
 struct arg
 {
     int t_index; /* the index of the created thread */
@@ -24,6 +28,11 @@ struct arg
 pthread_cond_t cond_vars[PHIL_NUM];
 pthread_mutex_t mutex;
 
+/*
+ * It gives a warning and I don't like it tbh
+ * Just make it more readable
+ *
+ */
 enum
 {
     THINKING,
@@ -36,6 +45,7 @@ void test(int index)
     if (state[RIGHT_NEIGHBOR(index)] != EATING && state[LEFT_NEIGHBOR(index)] != EATING && state[index] == HUNGRY)
     {
         state[index] = EATING;
+        printf("%d", EATING);
         pthread_cond_signal(&cond_vars[index]);
     }
 }
@@ -54,7 +64,7 @@ void pickupFork(int phil_no)
 
     pthread_mutex_unlock(&mutex);
 }
-
+//PutDown maybe?
 void dropFork(int phil_no)
 {
     pthread_mutex_lock(&mutex);
