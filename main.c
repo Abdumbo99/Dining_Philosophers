@@ -20,7 +20,7 @@ int thread_id[PHIL_NUM];
 
 void test(int ind){
     if (state[RIGHT_NEIGHBOR(ind)] != EATING && state[LEFT_NEIGHBOR(ind)]!= EATING
-        && state[ind] == HUNGRY ){
+        && state[ind] == HUNGRY){
         state[ind] = EATING;
         pthread_cond_signal(&cond[ind]);
     }
@@ -53,11 +53,11 @@ static void* philosiphize(void * indPtr){
     int ind = * index;
     while (1) {
         srand(time(NULL) * ind);
-        duration =generateUniRandom(MAX_THINK_TIME);
+        duration = generateUniRandom(MAX_THINK_TIME);
+        pickUpFork(ind);
         printf("Philosopher number (%d) is thinking for (%d) seconds\n", ind ,duration);
         sleep(duration);
-        pickUpFork(ind);
-        duration =generateUniRandom(MAX_EATING_TIME);
+        duration = generateUniRandom(MAX_EATING_TIME);
         printf("Philosopher number (%d) is eating for (%d) seconds\n", ind ,duration);
         sleep(duration);
         putDownFork(ind);
@@ -71,11 +71,11 @@ void init (int ind){
 }
 int main() {
     pthread_t tid[PHIL_NUM];
-
     for (int i = 0; i < PHIL_NUM; i++){
         init(i);
     }
     pthread_mutex_init(&mutex, NULL);
+
     for (int i = 0; i < PHIL_NUM; i++){
         pthread_create(&(tid[i]),NULL, philosiphize,(void*)&thread_id[i]);
     }
