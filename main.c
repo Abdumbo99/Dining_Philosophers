@@ -47,6 +47,7 @@ int generateUniRandom (int highRange){
     double myRand = rand()/(1.0 + RAND_MAX); // uniform distribution
     return myRand * highRange + 1;
 }
+
 static void* philosiphize(void * indPtr){
     int duration;
     int *index = (int*) indPtr;
@@ -54,10 +55,10 @@ static void* philosiphize(void * indPtr){
     while (1) {
         srand(time(NULL) * ind);
         duration = generateUniRandom(MAX_THINK_TIME);
-        pickUpFork(ind);
         printf("Philosopher number (%d) is thinking for (%d) seconds\n", ind ,duration);
         sleep(duration);
         duration = generateUniRandom(MAX_EATING_TIME);
+        pickUpFork(ind);
         printf("Philosopher number (%d) is eating for (%d) seconds\n", ind ,duration);
         sleep(duration);
         putDownFork(ind);
