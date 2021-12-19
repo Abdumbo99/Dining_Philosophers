@@ -63,7 +63,6 @@ static void* philosiphize(void * indPtr){
         sleep(duration);
         putDownFork(ind);
     }
-    //pthread_exit(NULL);
 }
 
 void init (int ind){
