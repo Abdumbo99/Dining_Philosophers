@@ -70,18 +70,26 @@ void init (int ind){
     thread_id[ind] = ind;
     pthread_cond_init(&cond[ind],NULL);
 }
+
 int main() {
     pthread_t tid[PHIL_NUM];
-    for (int i = 0; i < PHIL_NUM; i++){
+    int i;
+    for (i = 0; i < PHIL_NUM; i++){
         init(i);
     }
     pthread_mutex_init(&mutex, NULL);
-
-    for (int i = 0; i < PHIL_NUM; i++){
-        pthread_create(&(tid[i]),NULL, philosiphize,(void*)&thread_id[i]);
+    int ret = 0;
+    for (i = 0; i < PHIL_NUM; i++){
+        ret = pthread_create(&(tid[i]),NULL, philosiphize,(void*)&thread_id[i]);
+        if (ret != 0) {
+            printf("thread create failed \n");
+        }
     }
-    for (int i = 0; i < PHIL_NUM; i++){
-        pthread_join((tid[i]), NULL);
+    for (i = 0; i < PHIL_NUM; i++){
+        ret = pthread_join((tid[i]), NULL);
+        if (ret != 0) {
+            printf("thread join failed \n");
+        }
     }
     return 0;
 }
